@@ -1,0 +1,46 @@
+
+@font-face {
+  font-family: Creepy;
+  src: url(/font/Creepster-Regular.ttf);
+}
+
+h2 {
+  font-family: Creepy;
+  font-size: 80px;
+  color: #ffffff;
+  text-shadow: rgb(255, 0, 0) 1px 0 10px;
+  outline-color: #B91841;
+  -webkit-text-stroke: 4px rgb(247, 10, 10);
+text-stroke: 4px navy;
+}
+canvas {
+  border: 5px outset hsl(0, 0%, 0%);
+  background-image: url(/img/bg2.gif);
+  background-size: 800px 400px;
+  width: 800px;
+  height: 400px;
+  margin-top: 5vh;
+  box-sizing: border-box;
+}
+canvas:hover {
+  cursor: none;
+}
+
+body {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  background-image: url(/img/wallpaper.jpg);
+
+}
+
+#controls {
+  font-family: Creepy;
+  background-color: #B91841;
+  border: 5px inset #D26E96;
+  margin-top: 10px;
+  box-sizing: border-box;
+  padding: 10px;
+  color: white;
+}
+
