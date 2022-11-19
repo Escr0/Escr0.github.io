@@ -15,17 +15,40 @@ let score = 0;
 let gameState = 'PLAYING';
 let canvasSound;
 let ballEatenSound;
-
+var mousepos;
 alert("WARNING ! This game is spooky, are you sure to continue?")
 
+var hidden = false;
+    function action() {
+        hidden = !hidden;
+        if(hidden) {
+            document.getElementById('btn').style.visibility = 'hidden';
+        } else {
+            document.getElementById('btn').style.visibility = 'visible';
+        }
+    }
 
 var player = {
-    x: 10,
-    y: 10,
+    x: 400,
+    y: 200,
     width: 30,
     height: 30,
-};
+    move: function() {
+        if (mousePos !== undefined) {
+            this.x = mousePos.x;
+            this.y = mousePos.y;
+        }
+    }   
+  };
 
+
+function gameMenu() {
+    ctx.save();
+
+    ctx.font = '20px Arial';
+    ctx.fillText('Press \'Space\' or click here to start game', h / 2 - 180, w / 2);
+    ctx.restore();
+}
 
 function drawPlayer(r) {
     ctx.save();
@@ -57,13 +80,16 @@ window.onload = function init() {
     // important, we will draw with this object
     ctx = canvas.getContext('2d');
 
-    // start game with 10 balls, balls to eat = red balls
-    startGame(10);
+    // start game with 0 balls, balls to eat = red balls
+    startGame(0);
 
-    // add a mousemove event listener to the canvas
+    // add a mousemove and click event listener to the canvas
     canvas.addEventListener('mousemove', mouseMoved);
     window.addEventListener('keydown', traiteToucheEnfoncee);
-
+    document.addEventListener('click', (evt) => {
+            startGame(10);
+        }, {once : true});// un peu de bidouillage.. !
+    
     // ready to go !
     mainLoop();
     canvasSound = new Howl({

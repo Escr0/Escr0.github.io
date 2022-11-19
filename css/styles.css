@@ -44,3 +44,25 @@ body {
   color: white;
 }
 
+button {
+  position:absolute;
+  width: 800px;
+  height: 400px;
+  box-sizing: border-box;
+  margin-top: 5vh;
+  font-family: Creepy;
+  font-size: 80px;
+  color: white;
+  background-image: url(/img/menu.gif);
+background-size: cover;
+text-shadow: rgb(255, 0, 0) 1px 0 10px;
+cursor: default;
+
+}
+button:hover {
+	background: url(/img/bg2.gif);
+	color: #000000;
+  text-shadow: rgb(255, 255, 255) 1px 0 10px;
+background-size: cover;
+	box-shadow: inset 0 0 0 3px #3a7999;
+}
