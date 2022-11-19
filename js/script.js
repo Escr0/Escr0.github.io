@@ -13,10 +13,10 @@ let level = 1;
 let nbVies = 3;
 let score = 0;
 let gameState = 'PLAYING';
-
+let canvasSound;
 let ballEatenSound;
 
-alert("This game is spooky, are you sure to continue?")
+alert("WARNING ! This game is spooky, are you sure to continue?")
 
 
 var player = {
@@ -58,7 +58,7 @@ window.onload = function init() {
     ctx = canvas.getContext('2d');
 
     // start game with 10 balls, balls to eat = red balls
-    startGame(1);
+    startGame(10);
 
     // add a mousemove event listener to the canvas
     canvas.addEventListener('mousemove', mouseMoved);
@@ -66,14 +66,22 @@ window.onload = function init() {
 
     // ready to go !
     mainLoop();
-
+    canvasSound = new Howl({
+        urls: ['./fx/music.mp3'],
+        onload: function () {
+          // start background music
+            mainLoop();
+        }
+    });
+    canvasSound.play()
  ballEatenSound = new Howl({
                 urls: ['./fx/fx1.mp3'],
                 onload: function () {
-                  // start the animation
+                  // start ghost sound
                     mainLoop();
                 }
             });
+            
   
 };
 function playBackgroundMusic() {
@@ -121,7 +129,14 @@ function countNumberOfGoodBalls(balls, colorToEat) {
 
     return nb;
 }
-
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+      if ((new Date().getTime() - start) > milliseconds){
+        break;
+      }
+    }
+  }
 function changeNbBalls(nb) {
     startGame(nb);
 }
@@ -172,9 +187,10 @@ function mainLoop() {
         ctx.font = "100px Creepy";
         ctx.fillText("Game Over!" , 200, 350+Math.random()*5);
         ctx.font = "50px Creepy";
+        ctx.fillText(`Final score: ${score}`, 250+Math.random()*5, 200);
         ctx.fillText("Press <SPACE> to start again" , 150, 100+Math.random()*5);
 ctx.fillStyle = "red"
-    }
+    }    
     // ask the browser to call mainloop in 1/60 of  for a new animation frame
     requestAnimationFrame(mainLoop);
 }
@@ -197,13 +213,13 @@ function createBalls(n) {
     // create n balls
     for (var i = 0; i < n; i++) {
         var b = {
-            x: w / 2,
-            y: h / 2,
-            radius: 5 + 30 * 0.5 , // between 5 and 35
-            speedX: -5 + 5 * Math.random(), // between -5 and + 5
-            speedY: -5 + 5 * Math.random(), // between -5 and + 5
+            x: Math.round(Math.random() * h),
+            y: Math.round(Math.random() * w),
+            radius: 5 + 5 * Math.random() , // between 5 and 35
+            speedX: -5 + 10 * Math.random(), // between -5 and + 5
+            speedY: -5 + 10 * Math.random(), // between -5 and + 5
             color: getARandomColor(),
-        }
+        };
         // add ball b to the array
 
         ballArray.push(b);
@@ -223,6 +239,7 @@ function getARandomColor() {
     // return the random color
     return c;
 }
+
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 function drawInfosTextuelles(balls) {
@@ -235,10 +252,12 @@ function drawInfosTextuelles(balls) {
         
     } else if (goodBallsEaten === numberOfGoodBalls) {
         // On a gagné, on a mangé toutes les bonnes balles
-        ctx.fillText("You Win! Final score : " + (initialNumberOfBalls - wrongBallsEaten),
-            160, 160);
+       
 
-        // on change de niveau
+        // on change de niveau + faux chargement
+        sleep(100)
+            ctx.font = "50px Creepy";
+            ctx.fillText("LOADING...",300, 350);
         passerAuNiveauSuivant()
     } else {
         
@@ -255,7 +274,7 @@ function drawInfosTextuelles(balls) {
 
 function passerAuNiveauSuivant() {
     level++;
-    globalSpeedMultiplier += 0.2;
+    globalSpeedMultiplier += 0;
     startGame(level);
 }
 
@@ -274,11 +293,11 @@ function moveAllBalls(ballArray) {
             if (b.radius > 40) {
                 b.radius = 5;
             }
-            b.x += (b.speedX * globalSpeedMultiplier);
-            b.y += (b.speedY * globalSpeedMultiplier);
+            b.x += (b.speedX * globalSpeedMultiplier/2);
+            b.y += (b.speedY * globalSpeedMultiplier/2);
         } else {
-            b.x += (b.speedX * globalSpeedMultiplier);
-            b.y += (b.speedY * globalSpeedMultiplier);
+            b.x += (b.speedX * globalSpeedMultiplier/2);
+            b.y += (b.speedY * globalSpeedMultiplier/2);
         }
 
         testCollisionBallWithWalls(b);

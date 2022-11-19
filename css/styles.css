@@ -11,7 +11,7 @@ h2 {
   text-shadow: rgb(255, 0, 0) 1px 0 10px;
   outline-color: #B91841;
   -webkit-text-stroke: 4px rgb(247, 10, 10);
-text-stroke: 4px navy;
+margin-bottom: 10px;
 }
 canvas {
   border: 5px outset hsl(0, 0%, 0%);

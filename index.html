@@ -1,5 +1,6 @@
 <!DOCTYPE html> 
 <html lang="en">
+  <link rel="icon" type="image/png" href="/img/favicon.ico">
 <head>
   <meta charset="utf-8">
   <title> 2 SPOOKY 4 U</title>
@@ -10,15 +11,16 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.28/howler.min.js"></script>
 </head>
 <body>
-  <audio src = "./fx/music.mp3" 
+  <audio  
         id="audioPlayer">
 </audio>
     <h2>EAT THEM ALL </h2>
     <canvas id="myCanvas"  width="800" height="400"></canvas>
-<br>
+
+    <br>
   <div id="controls">
     <label for="nbBalls">Number of balls: </label>
-    <input type="number" min=1 max=30 
+    <input type="number" min=10 max=30 
            value=10 id="nbBalls"
            oninput="changeNbBalls(this.value);">
     <p></p>
@@ -36,7 +38,32 @@
            oninput="changeBallSpeed(this.value);"
              id="ballSpeed"> + 
     <p></p>
-    
   </div>
+  <dontclick>
+  <!--
+  ###, ,##, ,##,
+  #  # #  # #  #
+  ###  #  # #  #
+  #  # #  # #  #
+  ###' '##' '##'
+       .--,
+      /  (
+     /    \
+    /      \ 
+   /  0  0  \
+((()   |    ()    |   ()))
+\  ()  (  .____.  )  ()  /
+|` \_/ \  `""`  / \_/ `|
+|       `.'--'.`       |
+\        `""`        /
+\                  /
+`.              .'    ,
+  |`             |  _.'|
+|              `-'  /
+\                 .'
+ `.____________.-'
+
+-->
+</dontclick>
 </body>
 </html>
