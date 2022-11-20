@@ -283,7 +283,9 @@ function drawInfosTextuelles(balls) {
         // on change de niveau + faux chargement
         sleep(100)
             ctx.font = "50px Creepy";
+            ctx.fillStyle = "white";
             ctx.fillText("LOADING...",300, 350);
+
         passerAuNiveauSuivant()
     } else {
         
